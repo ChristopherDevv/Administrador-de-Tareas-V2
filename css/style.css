@@ -9,7 +9,10 @@
     --bisque: #FFE4C4;
     --tan: #D2B48C;
     --beige: #F5F5DC;
+    --red: #FF0000;
 }
+
+/* BASE MOBILE 320 PX */
 
 *{
     box-sizing: border-box;
@@ -198,4 +201,8 @@ main h1{
 
 .tarea:nth-child(even){
     background: var(--blanco);
+}
+
+.sweet-alert{
+    color: var(--red);
 }

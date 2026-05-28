@@ -116,7 +116,11 @@ const agregarTarea = () => {
     // FUNCION QUE VALIDA Y GUARDA EL VALOR DEL INPUT AL LOCAL STORAGE
     const guardar = () => {
       if (elementoInput.value === "") {
-        alert("Debe ingresar una tarea");
+        // UTILIZAMOS UN ALERT PERSONALIZADO
+        Swal.fire({
+          html: '<h1 class="sweet-alert">Debe ingresar una tarea</h1>',
+          icon: "error"
+        });
         return;
       }
 
@@ -198,9 +202,11 @@ const mostrarUltimaTareaAgregada = () => {
   elementoBtnEliminar.addEventListener("click", eliminarUltimaTareaAgregada);
 };
 
+// const tareasVacias = () =>{
+
+// }
+
 // MAIN - EVENTOS
 document.addEventListener("DOMContentLoaded", mostrarTareas);
 
 btnAgregar.addEventListener("click", agregarTarea);
-
-// localStorage.clear();
