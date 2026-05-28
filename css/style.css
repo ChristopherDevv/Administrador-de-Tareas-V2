@@ -51,8 +51,6 @@ main h1{
     overflow-x: hidden;
     overflow-y: scroll;
     position: relative;
-    scrollbar-color: var(--negro) var(--blanco);
-    scrollbar-width: thin;
 }
 
 /* ESTILO BUSCAR Y BOTON AGREGAR */
@@ -157,11 +155,10 @@ main h1{
 
 /* ESTILO MOSTRAS LAS TAREAS */
 .tarea{
-    /* border-top: .3rem solid var(--negro); */
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 8rem;
+    height: 7rem;
     padding: 0 .5rem;
 }
 
@@ -169,6 +166,7 @@ main h1{
     color: var(--negro);
     font-size: 1.9rem;
     font-weight: bold;
+    width: 60%;
 }
 
 .tarea .btns{

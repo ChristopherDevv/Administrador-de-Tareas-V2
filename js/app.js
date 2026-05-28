@@ -83,7 +83,7 @@ const elementosTareas = () => {
 };
 
 // CREAMOS OBJETO CON EL VALOR DEL INPUT Y CON UN ID ALEATORIO Y UNICO,
-const objTareas = (elementoInput) => {
+const crearTarea = (elementoInput) => {
   let id = Date.now();
   return {
     id,
@@ -120,7 +120,7 @@ const agregarTarea = () => {
         return;
       }
 
-      const tareasObj = objTareas(elementoInput);
+      const tareasObj = crearTarea(elementoInput);
 
       // GUARDAMOS EL OBJETO CON SUS DATOS AL ARRAY
       tareasArr.push(tareasObj);
@@ -140,6 +140,13 @@ const agregarTarea = () => {
     // EVENTO QUE AL DAR CLICK AGREGA LA TAREA EN LOCALSTORAGE
     elementoBtnGuardar.addEventListener("click", guardar);
 
+    // EVENTO QUE SE ACTIVA AL DAR TECLA ENTER DEL TECLADO, GUARDA LA TAREA EN LOCAL STORAGE
+    elementoInput.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        guardar();
+      }
+    });
+
     // EVENTO QUE AL DAR CLICK ELIMINA EL ELEMENTO AGREGAR
     elementoBtnCancelar.addEventListener("click", eliminarElementoAgregar);
   }
@@ -148,16 +155,47 @@ const agregarTarea = () => {
 // FUNCION QUE MUESTRA TODAS LAS TAREAS GUARDADAS
 const mostrarTareas = () => {
   tareasArr.forEach((tarea) => {
-    const { elementoTituloTarea } = elementosTareas();
+    const { elementoTituloTarea, elementoBtnEliminar, elementoTarea } =
+      elementosTareas();
     elementoTituloTarea.textContent = tarea.titulo;
+
+    // FUNCION QUE ELIMINA LAS TAREAS SELECCIONADAS POR SU ID
+    const eliminarTarea = () => {
+      // FILTRAMOS HACIENDO QUE DEVUELVA UN ARRAY AL MISMO ARRAY ORIGINAL MEDIANTE TODOS SUS DATOS MENOS EL ID QUE COINCIDA CON EL QUE BORRAMOS
+      tareasArr = tareasArr.filter((tareas) => tareas.id !== tarea.id);
+
+      // VOLVEMOS A GURDAR EL NUEVO ARRAY AL LOCAL STORAGE
+      localStorage.setItem("tareas", JSON.stringify(tareasArr));
+
+      // ELIMINAMOS EL ELEMENTO DE LA TAREA BORRADA
+      elementoTarea.remove();
+    };
+
+    // EVENTO QUE ELIMINA EL ELEMENTO DE LA TAREA
+    elementoBtnEliminar.addEventListener("click", eliminarTarea);
   });
 };
 
 // FUNCION QUE MUESTRA LA ULTIMA TAREA AGREGADA A LOS ELEMENTOS SIN TENER QUE REINICIAR PAGINA
 const mostrarUltimaTareaAgregada = () => {
   const ultimaTarea = tareasArr[tareasArr.length - 1];
-  const { elementoTituloTarea } = elementosTareas();
+  const { elementoTituloTarea, elementoBtnEliminar, elementoTarea } =
+    elementosTareas();
   elementoTituloTarea.textContent = ultimaTarea.titulo;
+
+  const eliminarUltimaTareaAgregada = () => {
+    // FILTRAMOS HACIENDO QUE DEVUELVA UN ARRAY AL MISMO ARRAY ORIGINAL MEDIANTE TODOS SUS DATOS MENOS EL ID QUE COINCIDA CON EL QUE BORRAMOS
+    tareasArr = tareasArr.filter((tareas) => tareas.id !== ultimaTarea.id);
+
+    // VOLVEMOS A GURDAR EL NUEVO ARRAY AL LOCAL STORAGE
+    localStorage.setItem("tareas", JSON.stringify(tareasArr));
+
+    // ELIMINAMOS EL ELEMENTO DE LA TAREA BORRADA
+    elementoTarea.remove();
+  };
+
+  // EVENTO QUE ELIMINA AL HACER CLICK LA ULTIMA TAREA AGREGADA
+  elementoBtnEliminar.addEventListener("click", eliminarUltimaTareaAgregada);
 };
 
 // MAIN - EVENTOS
