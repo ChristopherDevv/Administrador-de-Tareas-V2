@@ -1,0 +1,203 @@
+/* Fuente */
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
+
+/* Variables CSS */
+:root{
+    --blanco: #FFFFFF;
+    --negro: #000000;
+    --fuente-principal: "Quicksand", sans-serif;
+    --bisque: #FFE4C4;
+    --tan: #D2B48C;
+    --beige: #F5F5DC;
+}
+
+*{
+    box-sizing: border-box;
+    font-family: var(--fuente-principal);
+    margin: 0;
+    padding: 0;
+}
+
+
+html{
+    font-size: 62.5%;
+}
+
+body{
+    background: var(--beige);
+    font-size: 1.6rem;
+    min-height: 100dvh;
+}
+
+main{
+    min-height: 100dvh;
+}
+
+main h1{
+    background: var(--tan);
+    color: var(--beige);
+    font-size: 2.6rem;
+    height: 5rem;
+    padding-top: 1rem;
+    text-align: center;
+}
+
+.tareas-box{
+    background: var(--beige);
+    border:  .3rem solid var(--negro);
+    height: 40rem;
+    width: 95%;
+    margin: 1rem auto;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    position: relative;
+    scrollbar-color: var(--negro) var(--blanco);
+    scrollbar-width: thin;
+}
+
+/* ESTILO BUSCAR Y BOTON AGREGAR */
+.buscar-add{
+    background: var(--tan);
+    border-bottom: .3rem solid var(--negro);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 5rem;
+    width: 100%;
+    padding: 0 1rem 0 .5rem;
+    position: sticky;
+    top: 0;
+}
+
+.buscar{
+    display: flex;
+    align-items: center;
+    height: 4rem;
+    width: 60%;
+    position: relative;
+}
+
+.buscar input{
+    border: none;
+    height: 3.5rem;
+    width: 100%;
+    padding: 0 3.5rem 0 .5rem;
+    outline: none;
+}
+
+.buscar button{
+    background: none;
+    border: none;
+    position: absolute;
+    right: .3rem;
+}
+
+.buscar button i{
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+
+.buscar button:hover{
+    cursor: pointer;
+}
+
+.add{
+    background-color: var(--bisque);
+    border-radius: 50%;
+    box-shadow: 0 .1rem 1rem var(--negro);
+}
+
+.add i{
+    font-size: 3rem;
+}
+
+.add:hover{
+    cursor: pointer;
+    transform: scale(1.1);
+}
+
+/* ESTILO AGREGAR NUEVA TAREA */
+.tarea-agregar{
+    background: var(--bisque);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 5rem;
+    padding: 0 .5rem;
+}
+
+.tarea-agregar input{
+    height: 3rem;
+    width: 13rem;
+    outline: none;
+    padding: 0 .5rem;
+}
+
+.btns-add-cancel{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 45%;
+}
+
+.btns-add-cancel button{
+    background: none;
+    border: none;
+}
+
+.btns-add-cancel button I{
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.btns-add-cancel button:hover{
+  cursor: pointer;
+  transform: scale(1.1);
+}
+
+/* ESTILO MOSTRAS LAS TAREAS */
+.tarea{
+    /* border-top: .3rem solid var(--negro); */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 8rem;
+    padding: 0 .5rem;
+}
+
+.tarea h2{
+    color: var(--negro);
+    font-size: 1.9rem;
+    font-weight: bold;
+}
+
+.tarea .btns{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 40%;
+}
+
+.btns button{
+    background: none;
+    border: none;
+}
+
+.btns button i{
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+
+.btns button:hover{
+    cursor: pointer;
+    transform: scale(1.1);
+}
+
+.tarea:nth-child(odd){
+    background: var(--bisque);
+}
+
+.tarea:nth-child(even){
+    background: var(--blanco);
+}
