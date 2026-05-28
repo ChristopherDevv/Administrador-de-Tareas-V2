@@ -10,6 +10,12 @@ const btnAgregar = document.getElementById("agregarTarea");
 // VARIABLE QUE SIRVE PARA MANEJAR ESTADO DEL BOTON AGREGAR
 let agregarActivo = false;
 
+// OBTENEMOS EL ELEMENTO LUPA PARA BUSCAR
+const buscadorBtnLupa = document.getElementById("buscarLupa");
+
+// OBTENEMOS EL ELEMENTO INPUT PARA BUSCAR
+const buscadorInput = document.getElementById("buscarTareas");
+
 // FUNCION QUE CREA ELEMENTO PARA AGREGAR TAREA
 const elementoNuevaTarea = () => {
   const elementoTareaAgregar = document.createElement("div");
@@ -119,7 +125,7 @@ const agregarTarea = () => {
         // UTILIZAMOS UN ALERT PERSONALIZADO
         Swal.fire({
           html: '<h1 class="sweet-alert">Debe ingresar una tarea</h1>',
-          icon: "error"
+          icon: "error",
         });
         return;
       }
@@ -202,11 +208,38 @@ const mostrarUltimaTareaAgregada = () => {
   elementoBtnEliminar.addEventListener("click", eliminarUltimaTareaAgregada);
 };
 
-// const tareasVacias = () =>{
+const obtenerInputValor = () => {
+  return document.getElementById("buscarTareas").value;
+};
 
-// }
+const buscar = () => {
+  const inpBuscar = obtenerInputValor();
+
+  const busqueda = tareasArr.filter((tarea) =>
+    tarea.titulo.toLowerCase().includes(inpBuscar.toLowerCase().trim()),
+  );
+
+  while (tareaPadre.firstChild) {
+    tareaPadre.removeChild(tareaPadre.firstChild);
+  }
+
+  busqueda.forEach((tarea) => {
+    const { elementoTituloTarea } = elementosTareas();
+    elementoTituloTarea.textContent = tarea.titulo;
+  });
+};
+
+//
 
 // MAIN - EVENTOS
 document.addEventListener("DOMContentLoaded", mostrarTareas);
 
 btnAgregar.addEventListener("click", agregarTarea);
+
+buscadorBtnLupa.addEventListener("click", buscar);
+
+buscadorInput.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") {
+    buscar();
+  }
+});
