@@ -206,3 +206,10 @@ main h1{
 .sweet-alert{
     color: var(--red);
 }
+
+@media (max-height: 950px){
+    .tareas-box{
+    height: 60rem;
+    width: 95%;
+    }
+}
