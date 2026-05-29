@@ -48,7 +48,7 @@ main h1{
 .tareas-box{
     background: var(--beige);
     border:  .3rem solid var(--negro);
-    height: 40rem;
+    height: 38rem;
     width: 95%;
     margin: 1rem auto;
     overflow-x: hidden;
@@ -208,7 +208,7 @@ main h1{
 }
 
 /* RESPONSIVO ALTURA */
-@media (max-height: 950px){
+@media (min-height: 720px){
     .tareas-box{
     height: 60rem;
     width: 95%;
