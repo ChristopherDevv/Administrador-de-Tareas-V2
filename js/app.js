@@ -224,8 +224,24 @@ const buscar = () => {
   }
 
   busqueda.forEach((tarea) => {
-    const { elementoTituloTarea } = elementosTareas();
+    const { elementoTituloTarea, elementoBtnEliminar, elementoTarea } =
+      elementosTareas();
     elementoTituloTarea.textContent = tarea.titulo;
+
+    // FUNCION QUE ELIMINA LAS TAREAS SELECCIONADAS POR SU ID
+    const eliminarTarea = () => {
+      // FILTRAMOS HACIENDO QUE DEVUELVA UN ARRAY AL MISMO ARRAY ORIGINAL MEDIANTE TODOS SUS DATOS MENOS EL ID QUE COINCIDA CON EL QUE BORRAMOS
+      tareasArr = tareasArr.filter((tareas) => tareas.id !== tarea.id);
+
+      // VOLVEMOS A GURDAR EL NUEVO ARRAY AL LOCAL STORAGE
+      localStorage.setItem("tareas", JSON.stringify(tareasArr));
+
+      // ELIMINAMOS EL ELEMENTO DE LA TAREA BORRADA
+      elementoTarea.remove();
+    };
+
+    // EVENTO QUE ELIMINA EL ELEMENTO DE LA TAREA
+    elementoBtnEliminar.addEventListener("click", eliminarTarea);
   });
 };
 
