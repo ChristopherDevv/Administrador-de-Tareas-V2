@@ -169,20 +169,10 @@ const mostrarTareas = () => {
       elementosTareas();
     elementoTituloTarea.textContent = tarea.titulo;
 
-    // FUNCION QUE ELIMINA LAS TAREAS SELECCIONADAS POR SU ID
-    const eliminarTarea = () => {
-      // FILTRAMOS HACIENDO QUE DEVUELVA UN ARRAY AL MISMO ARRAY ORIGINAL MEDIANTE TODOS SUS DATOS MENOS EL ID QUE COINCIDA CON EL QUE BORRAMOS
-      tareasArr = tareasArr.filter((tareas) => tareas.id !== tarea.id);
-
-      // VOLVEMOS A GURDAR EL NUEVO ARRAY AL LOCAL STORAGE
-      localStorage.setItem("tareas", JSON.stringify(tareasArr));
-
-      // ELIMINAMOS EL ELEMENTO DE LA TAREA BORRADA
-      elementoTarea.remove();
-    };
-
     // EVENTO QUE ELIMINA EL ELEMENTO DE LA TAREA
-    elementoBtnEliminar.addEventListener("click", eliminarTarea);
+    elementoBtnEliminar.addEventListener("click", () => {
+      eliminarTarea(tarea, elementoTarea);
+    });
   });
 };
 
@@ -193,25 +183,18 @@ const mostrarUltimaTareaAgregada = () => {
     elementosTareas();
   elementoTituloTarea.textContent = ultimaTarea.titulo;
 
-  const eliminarUltimaTareaAgregada = () => {
-    // FILTRAMOS HACIENDO QUE DEVUELVA UN ARRAY AL MISMO ARRAY ORIGINAL MEDIANTE TODOS SUS DATOS MENOS EL ID QUE COINCIDA CON EL QUE BORRAMOS
-    tareasArr = tareasArr.filter((tareas) => tareas.id !== ultimaTarea.id);
-
-    // VOLVEMOS A GURDAR EL NUEVO ARRAY AL LOCAL STORAGE
-    localStorage.setItem("tareas", JSON.stringify(tareasArr));
-
-    // ELIMINAMOS EL ELEMENTO DE LA TAREA BORRADA
-    elementoTarea.remove();
-  };
-
   // EVENTO QUE ELIMINA AL HACER CLICK LA ULTIMA TAREA AGREGADA
-  elementoBtnEliminar.addEventListener("click", eliminarUltimaTareaAgregada);
+  elementoBtnEliminar.addEventListener("click", () => {
+    eliminarUltimaTareaAgregada(ultimaTarea, elementoTarea);
+  });
 };
 
+// FUNCION QUE OBTIENE EL VALOR DEL INPUT
 const obtenerInputValor = () => {
   return document.getElementById("buscarTareas").value;
 };
 
+// FUNCION QUE BUSCA LAS TAREAS Y LAS MUESTRA + ELIMINA LA TAREA
 const buscar = () => {
   const inpBuscar = obtenerInputValor();
 
@@ -228,24 +211,36 @@ const buscar = () => {
       elementosTareas();
     elementoTituloTarea.textContent = tarea.titulo;
 
-    // FUNCION QUE ELIMINA LAS TAREAS SELECCIONADAS POR SU ID
-    const eliminarTarea = () => {
-      // FILTRAMOS HACIENDO QUE DEVUELVA UN ARRAY AL MISMO ARRAY ORIGINAL MEDIANTE TODOS SUS DATOS MENOS EL ID QUE COINCIDA CON EL QUE BORRAMOS
-      tareasArr = tareasArr.filter((tareas) => tareas.id !== tarea.id);
-
-      // VOLVEMOS A GURDAR EL NUEVO ARRAY AL LOCAL STORAGE
-      localStorage.setItem("tareas", JSON.stringify(tareasArr));
-
-      // ELIMINAMOS EL ELEMENTO DE LA TAREA BORRADA
-      elementoTarea.remove();
-    };
-
     // EVENTO QUE ELIMINA EL ELEMENTO DE LA TAREA
-    elementoBtnEliminar.addEventListener("click", eliminarTarea);
+    elementoBtnEliminar.addEventListener("click", () => {
+      eliminarTarea(tarea, elementoTarea);
+    });
   });
 };
 
-//
+// FUNCION QUE ELIMINA LAS TAREAS SELECCIONADAS POR SU ID
+const eliminarUltimaTareaAgregada = (ultimaTarea, elementoTarea) => {
+  // FILTRAMOS HACIENDO QUE DEVUELVA UN ARRAY AL MISMO ARRAY ORIGINAL MEDIANTE TODOS SUS DATOS MENOS EL ID QUE COINCIDA CON EL QUE BORRAMOS
+  tareasArr = tareasArr.filter((tareas) => tareas.id !== ultimaTarea.id);
+
+  // VOLVEMOS A GURDAR EL NUEVO ARRAY AL LOCAL STORAGE
+  localStorage.setItem("tareas", JSON.stringify(tareasArr));
+
+  // ELIMINAMOS EL ELEMENTO DE LA TAREA BORRADA
+  elementoTarea.remove();
+};
+
+// FUNCION QUE ELIMINA LAS TAREAS SELECCIONADAS POR SU ID
+const eliminarTarea = (tarea, elementoTarea) => {
+  // FILTRAMOS HACIENDO QUE DEVUELVA UN ARRAY AL MISMO ARRAY ORIGINAL MEDIANTE TODOS SUS DATOS MENOS EL ID QUE COINCIDA CON EL QUE BORRAMOS
+  tareasArr = tareasArr.filter((tareas) => tareas.id !== tarea.id);
+
+  // VOLVEMOS A GURDAR EL NUEVO ARRAY AL LOCAL STORAGE
+  localStorage.setItem("tareas", JSON.stringify(tareasArr));
+
+  // ELIMINAMOS EL ELEMENTO DE LA TAREA BORRADA
+  elementoTarea.remove();
+};
 
 // MAIN - EVENTOS
 document.addEventListener("DOMContentLoaded", mostrarTareas);
