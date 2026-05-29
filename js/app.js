@@ -138,6 +138,11 @@ const agregarTarea = () => {
       // GUARDAMOS EL ARRAY EN EL LOCAL STORAGE
       localStorage.setItem("tareas", JSON.stringify(tareasArr));
 
+      if (tareasArr.length === 1){
+        // Seleccionamos el elemento y lo borramos
+        document.querySelector(".vacio").remove();
+      }
+
       // MOSTRAR LA ULTIMA TAREA AGREGADA SIN TENER QUE REINICIAR PAGINA
       mostrarUltimaTareaAgregada();
 
@@ -164,6 +169,11 @@ const agregarTarea = () => {
 
 // FUNCION QUE MUESTRA TODAS LAS TAREAS GUARDADAS
 const mostrarTareas = () => {
+  if (tareasArr.length === 0) {
+    elementoSinTareas();
+    return;
+  }
+
   tareasArr.forEach((tarea) => {
     const { elementoTituloTarea, elementoBtnEliminar, elementoTarea } =
       elementosTareas();
@@ -228,6 +238,10 @@ const eliminarUltimaTareaAgregada = (ultimaTarea, elementoTarea) => {
 
   // ELIMINAMOS EL ELEMENTO DE LA TAREA BORRADA
   elementoTarea.remove();
+
+  if (tareasArr.length === 0){
+    elementoSinTareas();
+  }
 };
 
 // FUNCION QUE ELIMINA LAS TAREAS SELECCIONADAS POR SU ID
@@ -240,6 +254,14 @@ const eliminarTarea = (tarea, elementoTarea) => {
 
   // ELIMINAMOS EL ELEMENTO DE LA TAREA BORRADA
   elementoTarea.remove();
+};
+
+const elementoSinTareas = () => {
+  const elementoTareasBox = document.querySelector(".tareas-box");
+  const elementoVacio = document.createElement("p");
+  elementoTareasBox.appendChild(elementoVacio);
+  elementoVacio.classList.add("vacio");
+  elementoVacio.textContent = "No hay Tareas";
 };
 
 // MAIN - EVENTOS

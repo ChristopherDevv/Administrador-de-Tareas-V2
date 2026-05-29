@@ -207,6 +207,14 @@ main h1{
     color: var(--red);
 }
 
+.vacio{
+    font-size: 2rem;
+    font-weight: bold;
+    margin: 15rem auto;
+    text-align: center;
+    width: 30rem;
+}
+
 /* RESPONSIVO ALTURA */
 @media (min-height: 720px){
     .tareas-box{
