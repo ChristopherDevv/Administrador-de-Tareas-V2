@@ -107,9 +107,18 @@ const agregarTarea = () => {
       elementoBtnGuardar,
     } = elementoNuevaTarea();
 
+    // OBTENEMOS EL INPUT Y BOTON LUPA, UNA VEZ QUE ESTAMOS AGREGANDO BLOQUEMOS ENTRADA DEL BUSCADOR
+    document.getElementById("buscarTareas").readOnly = true;
+
+    document.getElementById("buscarLupa").disabled = true;
+
     // FUNCION QUE ELIMINA ELEMENTO AGREGAR
     const eliminarElementoAgregar = () => {
       elementoTareaAgregar.remove();
+
+      document.getElementById("buscarTareas").readOnly = false;
+      document.getElementById("buscarLupa").disabled = false;
+
       agregarActivo = false;
     };
 
@@ -138,10 +147,15 @@ const agregarTarea = () => {
       // GUARDAMOS EL ARRAY EN EL LOCAL STORAGE
       localStorage.setItem("tareas", JSON.stringify(tareasArr));
 
-      if (tareasArr.length === 1){
+      if (tareasArr.length === 1) {
         // Seleccionamos el elemento y lo borramos
         document.querySelector(".vacio").remove();
       }
+
+      // OBTENEMOS EL INPUT Y BOTON LUPA, UNA VEZ QUE TERMINAMOS DE AGREGAR DESBLOQUEAMOS ENTRADA DEL BUSCADOR
+      document.getElementById("buscarTareas").readOnly = false;
+
+      document.getElementById("buscarLupa").disabled = false;
 
       // MOSTRAR LA ULTIMA TAREA AGREGADA SIN TENER QUE REINICIAR PAGINA
       mostrarUltimaTareaAgregada();
@@ -239,7 +253,7 @@ const eliminarUltimaTareaAgregada = (ultimaTarea, elementoTarea) => {
   // ELIMINAMOS EL ELEMENTO DE LA TAREA BORRADA
   elementoTarea.remove();
 
-  if (tareasArr.length === 0){
+  if (tareasArr.length === 0) {
     elementoSinTareas();
   }
 };
