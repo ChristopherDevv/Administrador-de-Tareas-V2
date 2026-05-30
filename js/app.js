@@ -16,6 +16,8 @@ const buscadorBtnLupa = document.getElementById("buscarLupa");
 // OBTENEMOS EL ELEMENTO INPUT PARA BUSCAR
 const buscadorInput = document.getElementById("buscarTareas");
 
+const elementoTareasBox = document.querySelector(".tareas-box");
+
 // FUNCION QUE CREA ELEMENTO PARA AGREGAR TAREA
 const elementoNuevaTarea = () => {
   const elementoTareaAgregar = document.createElement("div");
@@ -107,6 +109,9 @@ const agregarTarea = () => {
       elementoBtnGuardar,
     } = elementoNuevaTarea();
 
+    // UNA VEZ QUE ESTE AGREGANDO NUEVA TAREA SE VACIA EL INPUT DEL BUSCADOR
+    document.getElementById("buscarTareas").value = "";
+
     // OBTENEMOS EL INPUT Y BOTON LUPA, UNA VEZ QUE ESTAMOS AGREGANDO BLOQUEMOS ENTRADA DEL BUSCADOR
     document.getElementById("buscarTareas").readOnly = true;
 
@@ -158,7 +163,8 @@ const agregarTarea = () => {
       document.getElementById("buscarLupa").disabled = false;
 
       // MOSTRAR LA ULTIMA TAREA AGREGADA SIN TENER QUE REINICIAR PAGINA
-      mostrarUltimaTareaAgregada();
+      // MOSTRAR TODAS LAS TAREAS DESPUES DE AGREGAR
+      mostrarTareas();
 
       // ELIMINAMOS EL ELEMENTO DEL AGREGAR UNA VEZ GUARDADO
       eliminarElementoAgregar();
@@ -181,11 +187,16 @@ const agregarTarea = () => {
   }
 };
 
-// FUNCION QUE MUESTRA TODAS LAS TAREAS GUARDADAS
+// FUNCION QUE MUESTRA LA ULTIMA TAREA AGREGADA A LOS ELEMENTOS SIN TENER QUE REINICIAR PAGINA
+// FUNCION QUE MUESTRA TODAS LAS TAREAS GUARDADAS DESPUES DE AGREGAR UNA NUEVA
 const mostrarTareas = () => {
   if (tareasArr.length === 0) {
     elementoSinTareas();
     return;
+  }
+
+  while (tareaPadre.firstChild) {
+    tareaPadre.removeChild(tareaPadre.firstChild);
   }
 
   tareasArr.forEach((tarea) => {
@@ -197,19 +208,6 @@ const mostrarTareas = () => {
     elementoBtnEliminar.addEventListener("click", () => {
       eliminarTarea(tarea, elementoTarea);
     });
-  });
-};
-
-// FUNCION QUE MUESTRA LA ULTIMA TAREA AGREGADA A LOS ELEMENTOS SIN TENER QUE REINICIAR PAGINA
-const mostrarUltimaTareaAgregada = () => {
-  const ultimaTarea = tareasArr[tareasArr.length - 1];
-  const { elementoTituloTarea, elementoBtnEliminar, elementoTarea } =
-    elementosTareas();
-  elementoTituloTarea.textContent = ultimaTarea.titulo;
-
-  // EVENTO QUE ELIMINA AL HACER CLICK LA ULTIMA TAREA AGREGADA
-  elementoBtnEliminar.addEventListener("click", () => {
-    eliminarUltimaTareaAgregada(ultimaTarea, elementoTarea);
   });
 };
 
@@ -271,7 +269,6 @@ const eliminarTarea = (tarea, elementoTarea) => {
 };
 
 const elementoSinTareas = () => {
-  const elementoTareasBox = document.querySelector(".tareas-box");
   const elementoVacio = document.createElement("p");
   elementoTareasBox.appendChild(elementoVacio);
   elementoVacio.classList.add("vacio");
@@ -285,8 +282,8 @@ btnAgregar.addEventListener("click", agregarTarea);
 
 buscadorBtnLupa.addEventListener("click", buscar);
 
-buscadorInput.addEventListener("keydown", (e) => {
-  if (e.key === "Enter") {
-    buscar();
-  }
-});
+// buscadorInput.addEventListener("keydown", (e) => {
+//   if (e.key === "Enter") {
+//     buscar();
+//   }
+// });

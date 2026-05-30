@@ -87,6 +87,7 @@ main h1{
 }
 
 .buscar button{
+    animation: pulso 2s infinite;
     background: none;
     border: none;
     position: absolute;
@@ -102,6 +103,18 @@ main h1{
     cursor: pointer;
 }
 
+@keyframes pulso {
+    0%{
+        transform: scale(1);
+    }
+
+    50%{
+        transform: scale(1.2);
+    }
+    100%{
+        transform: scale(1);
+    }
+}
 .add{
     background-color: var(--bisque);
     border-radius: 50%;
