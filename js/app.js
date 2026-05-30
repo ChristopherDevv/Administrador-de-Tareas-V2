@@ -266,6 +266,10 @@ const eliminarTarea = (tarea, elementoTarea) => {
 
   // ELIMINAMOS EL ELEMENTO DE LA TAREA BORRADA
   elementoTarea.remove();
+
+  if (tareasArr.length === 0) {
+    elementoSinTareas();
+  }
 };
 
 const elementoSinTareas = () => {
