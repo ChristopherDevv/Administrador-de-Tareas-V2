@@ -112,17 +112,9 @@ const agregarTarea = () => {
     // UNA VEZ QUE ESTE AGREGANDO NUEVA TAREA SE VACIA EL INPUT DEL BUSCADOR
     document.getElementById("buscarTareas").value = "";
 
-    // OBTENEMOS EL INPUT Y BOTON LUPA, UNA VEZ QUE ESTAMOS AGREGANDO BLOQUEMOS ENTRADA DEL BUSCADOR
-    document.getElementById("buscarTareas").readOnly = true;
-
-    document.getElementById("buscarLupa").disabled = true;
-
     // FUNCION QUE ELIMINA ELEMENTO AGREGAR
     const eliminarElementoAgregar = () => {
       elementoTareaAgregar.remove();
-
-      document.getElementById("buscarTareas").readOnly = false;
-      document.getElementById("buscarLupa").disabled = false;
 
       agregarActivo = false;
     };
@@ -157,10 +149,8 @@ const agregarTarea = () => {
         document.querySelector(".vacio").remove();
       }
 
-      // OBTENEMOS EL INPUT Y BOTON LUPA, UNA VEZ QUE TERMINAMOS DE AGREGAR DESBLOQUEAMOS ENTRADA DEL BUSCADOR
-      document.getElementById("buscarTareas").readOnly = false;
-
-      document.getElementById("buscarLupa").disabled = false;
+      // LIMPIAMOS EL BUSCADOR UNA VEZ AGREGADA LA TAREA
+      document.getElementById("buscarTareas").value = "";
 
       // MOSTRAR LA ULTIMA TAREA AGREGADA SIN TENER QUE REINICIAR PAGINA
       // MOSTRAR TODAS LAS TAREAS DESPUES DE AGREGAR
@@ -218,6 +208,9 @@ const obtenerInputValor = () => {
 
 // FUNCION QUE BUSCA LAS TAREAS Y LAS MUESTRA + ELIMINA LA TAREA
 const buscar = () => {
+  if (agregarActivo) {
+    return;
+  }
   const inpBuscar = obtenerInputValor();
 
   const busqueda = tareasArr.filter((tarea) =>
@@ -286,8 +279,8 @@ btnAgregar.addEventListener("click", agregarTarea);
 
 buscadorBtnLupa.addEventListener("click", buscar);
 
-// buscadorInput.addEventListener("keydown", (e) => {
-//   if (e.key === "Enter") {
-//     buscar();
-//   }
-// });
+buscadorInput.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") {
+    buscar();
+  }
+});
