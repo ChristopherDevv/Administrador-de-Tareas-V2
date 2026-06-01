@@ -182,14 +182,14 @@ main h1{
     color: var(--negro);
     font-size: 1.9rem;
     font-weight: bold;
-    width: 60%;
+    width: 50%;
 }
 
 .tarea .btns{
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: 40%;
+    width: 45%;
 }
 
 .btns button{
@@ -226,6 +226,33 @@ main h1{
     margin: 15rem auto;
     text-align: center;
     width: 30rem;
+}
+
+/* EDITAR */
+.inputEditar{
+    background: none;
+    border: none;
+    font-size: 1.8rem;
+    height: 5rem;
+    width: 45%;
+    outline: none;
+    padding: 0 .5rem;
+}
+
+.btns-editar button{
+    background: none;
+    border: none;
+}
+
+.btns-editar button i{
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+
+.btns-editar button:hover{
+    cursor: pointer;
+    transform: scale(1.1);
 }
 
 /* RESPONSIVO ALTURA */

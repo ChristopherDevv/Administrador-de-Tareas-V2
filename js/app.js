@@ -10,13 +10,20 @@ const btnAgregar = document.getElementById("agregarTarea");
 // VARIABLE QUE SIRVE PARA MANEJAR ESTADO DEL BOTON AGREGAR
 let agregarActivo = false;
 
+// VARIABLE QUE SIRVE PARA MANEJAR ESTADO DEL BOTON EDITAR
+let editarActivo = false;
+
 // OBTENEMOS EL ELEMENTO LUPA PARA BUSCAR
 const buscadorBtnLupa = document.getElementById("buscarLupa");
 
 // OBTENEMOS EL ELEMENTO INPUT PARA BUSCAR
 const buscadorInput = document.getElementById("buscarTareas");
 
+// OBTENEMOS EL ELEMENTO BOX DONDE ESTAN TODAS LAS TAREAS
 const elementoTareasBox = document.querySelector(".tareas-box");
+
+// OBTENEMOS EL ELEMENTO DE LA TAREA
+// const elementoBoxTarea = document.querySelector(".tarea");
 
 // FUNCION QUE CREA ELEMENTO PARA AGREGAR TAREA
 const elementoNuevaTarea = () => {
@@ -190,10 +197,73 @@ const mostrarTareas = () => {
   }
 
   tareasArr.forEach((tarea) => {
-    const { elementoTituloTarea, elementoBtnEliminar, elementoTarea } =
-      elementosTareas();
+    const {
+      elementoTituloTarea,
+      elementoBtnEliminar,
+      elementoTarea,
+      elementoBtnEditar,
+      elementoBotones,
+    } = elementosTareas();
     elementoTituloTarea.textContent = tarea.titulo;
 
+    // EVENTO EDITAR TAREA
+    elementoBtnEditar.addEventListener("click", () => {
+      // SI ESTAMOS EDITANDO Y EDITAR ACTIVO ES TRUE NO DEJA EDITAR OTRAS HASTA QUE TERMINEMOS DE EDITAR
+      if (editarActivo) {
+        return;
+      }
+
+      editarActivo = true;
+
+      // OCULTAMOS ELEMENTOS
+      elementoBotones.style.display = "none";
+      elementoTituloTarea.hidden = true;
+      const {
+        elementoInputEditar,
+        elementoBtnGuardarEditar,
+        elementoBtnCancelarEditar,
+        elementoBtnsEditar,
+      } = elementoEditar(elementoTarea);
+
+      elementoInputEditar.focus();
+
+      const editarTarea = () => {
+        if (elementoInputEditar.value === "") {
+          // UTILIZAMOS UN ALERT PERSONALIZADO
+          Swal.fire({
+            html: '<h1 class="sweet-alert">Debe escribir una tarea</h1>',
+            icon: "error",
+          });
+          return;
+        }
+        // EDITAMOS Y AGREGAMOS EL VALOR DEL INPUT AL OBJETO Y PROPIEDAD TITULO
+        tarea.titulo = elementoInputEditar.value;
+        localStorage.setItem("tareas", JSON.stringify(tareasArr));
+
+        elementoInputEditar.remove();
+        elementoBtnsEditar.remove();
+        elementoBotones.style.display = "flex";
+        elementoTituloTarea.hidden = false;
+        elementoTituloTarea.textContent = tarea.titulo;
+        editarActivo = false;
+      };
+
+      // EVENTO GUARDAR TAREA EDITADA
+      elementoBtnGuardarEditar.addEventListener("click", editarTarea);
+
+      // FUNCION QUE CANCELA EDITAR TAREA
+      const cancelarEditar = () => {
+        editarActivo = false;
+        elementoInputEditar.remove();
+        elementoBtnsEditar.remove();
+        elementoBotones.style.display = "flex";
+        elementoTituloTarea.hidden = false;
+        elementoTituloTarea.textContent = tarea.titulo;
+      };
+
+      // EVENTO QUE CANCELAR EDITAR TAREA
+      elementoBtnCancelarEditar.addEventListener("click", cancelarEditar);
+    });
     // EVENTO QUE ELIMINA EL ELEMENTO DE LA TAREA
     elementoBtnEliminar.addEventListener("click", () => {
       eliminarTarea(tarea, elementoTarea);
@@ -211,6 +281,11 @@ const buscar = () => {
   if (agregarActivo) {
     return;
   }
+
+  if (editarActivo) {
+    return;
+  }
+
   const inpBuscar = obtenerInputValor();
 
   const busqueda = tareasArr.filter((tarea) =>
@@ -270,6 +345,37 @@ const elementoSinTareas = () => {
   elementoTareasBox.appendChild(elementoVacio);
   elementoVacio.classList.add("vacio");
   elementoVacio.textContent = "No hay Tareas";
+};
+
+const elementoEditar = (elementoTarea) => {
+  const elementoInputEditar = document.createElement("input");
+  const elementoBtnsEditar = document.createElement("div");
+  const elementoBtnGuardarEditar = document.createElement("button");
+  const elementoBtnCancelarEditar = document.createElement("button");
+  const elementoIconoGuardarEditar = document.createElement("i");
+  const elementoIconoCancelarEditar = document.createElement("i");
+
+  elementoTarea.appendChild(elementoInputEditar);
+  elementoTarea.appendChild(elementoBtnsEditar);
+  elementoBtnsEditar.appendChild(elementoBtnGuardarEditar);
+  elementoBtnsEditar.appendChild(elementoBtnCancelarEditar);
+  elementoBtnGuardarEditar.appendChild(elementoIconoGuardarEditar);
+  elementoBtnCancelarEditar.appendChild(elementoIconoCancelarEditar);
+
+  elementoInputEditar.classList.add("inputEditar");
+  elementoInputEditar.placeholder = "Escribir aqui";
+  elementoBtnsEditar.classList.add("btns");
+  elementoBtnGuardarEditar.classList.add("ri-save-fill");
+  elementoBtnCancelarEditar.classList.add("ri-close-circle-fill");
+  elementoBtnGuardarEditar.textContent = "Guardar";
+  elementoBtnCancelarEditar.textContent = "Cancelar";
+
+  return {
+    elementoInputEditar,
+    elementoBtnGuardarEditar,
+    elementoBtnCancelarEditar,
+    elementoBtnsEditar,
+  };
 };
 
 // MAIN - EVENTOS
