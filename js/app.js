@@ -216,6 +216,10 @@ const mostrarTareas = () => {
         return;
       }
 
+      if (agregarActivo) {
+        return;
+      }
+
       editarActivo = true;
 
       // OCULTAMOS ELEMENTOS
