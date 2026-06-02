@@ -108,6 +108,9 @@ const crearTarea = (elementoInput) => {
 
 // FUNCION PARA AGREGAR TAREA
 const agregarTarea = () => {
+  if (editarActivo) {
+    return;
+  }
   if (!agregarActivo) {
     const {
       elementoTareaAgregar,
@@ -297,9 +300,73 @@ const buscar = () => {
   }
 
   busqueda.forEach((tarea) => {
-    const { elementoTituloTarea, elementoBtnEliminar, elementoTarea } =
-      elementosTareas();
+    const {
+      elementoTituloTarea,
+      elementoBtnEliminar,
+      elementoTarea,
+      elementoBtnEditar,
+      elementoBotones,
+    } = elementosTareas();
     elementoTituloTarea.textContent = tarea.titulo;
+
+    // EVENTO EDITAR TAREA
+    elementoBtnEditar.addEventListener("click", () => {
+      // SI ESTAMOS EDITANDO Y EDITAR ACTIVO ES TRUE NO DEJA EDITAR OTRAS HASTA QUE TERMINEMOS DE EDITAR
+      if (editarActivo) {
+        return;
+      }
+
+      editarActivo = true;
+
+      // OCULTAMOS ELEMENTOS
+      elementoBotones.style.display = "none";
+      elementoTituloTarea.hidden = true;
+      const {
+        elementoInputEditar,
+        elementoBtnGuardarEditar,
+        elementoBtnCancelarEditar,
+        elementoBtnsEditar,
+      } = elementoEditar(elementoTarea);
+
+      elementoInputEditar.focus();
+
+      const editarTarea = () => {
+        if (elementoInputEditar.value === "") {
+          // UTILIZAMOS UN ALERT PERSONALIZADO
+          Swal.fire({
+            html: '<h1 class="sweet-alert">Debe escribir una tarea</h1>',
+            icon: "error",
+          });
+          return;
+        }
+        // EDITAMOS Y AGREGAMOS EL VALOR DEL INPUT AL OBJETO Y PROPIEDAD TITULO
+        tarea.titulo = elementoInputEditar.value;
+        localStorage.setItem("tareas", JSON.stringify(tareasArr));
+
+        elementoInputEditar.remove();
+        elementoBtnsEditar.remove();
+        elementoBotones.style.display = "flex";
+        elementoTituloTarea.hidden = false;
+        elementoTituloTarea.textContent = tarea.titulo;
+        editarActivo = false;
+      };
+
+      // EVENTO GUARDAR TAREA EDITADA
+      elementoBtnGuardarEditar.addEventListener("click", editarTarea);
+
+      // FUNCION QUE CANCELA EDITAR TAREA
+      const cancelarEditar = () => {
+        editarActivo = false;
+        elementoInputEditar.remove();
+        elementoBtnsEditar.remove();
+        elementoBotones.style.display = "flex";
+        elementoTituloTarea.hidden = false;
+        elementoTituloTarea.textContent = tarea.titulo;
+      };
+
+      // EVENTO QUE CANCELAR EDITAR TAREA
+      elementoBtnCancelarEditar.addEventListener("click", cancelarEditar);
+    });
 
     // EVENTO QUE ELIMINA EL ELEMENTO DE LA TAREA
     elementoBtnEliminar.addEventListener("click", () => {
