@@ -111,6 +111,7 @@ const agregarTarea = () => {
   if (editarActivo) {
     return;
   }
+
   if (!agregarActivo) {
     const {
       elementoTareaAgregar,
@@ -397,6 +398,9 @@ const eliminarUltimaTareaAgregada = (ultimaTarea, elementoTarea) => {
 
 // FUNCION QUE ELIMINA LAS TAREAS SELECCIONADAS POR SU ID
 const eliminarTarea = (tarea, elementoTarea) => {
+  if (agregarActivo) {
+    return;
+  }
   // FILTRAMOS HACIENDO QUE DEVUELVA UN ARRAY AL MISMO ARRAY ORIGINAL MEDIANTE TODOS SUS DATOS MENOS EL ID QUE COINCIDA CON EL QUE BORRAMOS
   tareasArr = tareasArr.filter((tareas) => tareas.id !== tarea.id);
 
