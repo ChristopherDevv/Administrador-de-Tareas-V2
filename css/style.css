@@ -180,21 +180,22 @@ main h1{
 
 .tarea h2{
     color: var(--negro);
-    font-size: 1.9rem;
+    font-size: 1.5rem;
     font-weight: bold;
     width: 50%;
 }
 
-.tarea .btns{
+.btns{
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: 45%;
+    width: 48%;
 }
 
 .btns button{
     background: none;
     border: none;
+    font-weight: bold;
 }
 
 .btns button i{
@@ -246,7 +247,6 @@ main h1{
 
 .btns-editar button i{
     font-size: 1.2rem;
-    font-weight: bold;
 }
 
 
@@ -264,5 +264,77 @@ main h1{
 
     .vacio{
         margin: 25rem auto;
+    }
+}
+
+@media (min-width: 500px) and (max-width: 1000px) {
+    .tarea-agregar input{
+        width: 55%;
+    }
+
+    .btns-add-cancel{
+        width: 18rem;
+    }
+
+    .btns-add-cancel button I{
+        font-size: 1.5rem;
+    }
+
+
+
+
+    .buscar{
+        width: 30%;
+    }
+
+    .buscar-add input{
+        width:100%;
+    }
+
+    .buscar button{
+        right: 1%;
+    }
+
+    .btns{
+        width: 15rem;
+    }
+    .tarea h2{
+        font-size: 2.2rem;
+    }
+
+    .btns button i{
+        font-size: 1.5rem;
+    }
+}
+
+@media (min-width: 1001px){
+    .tareas-box{
+        width: 80%;
+    }
+
+    .tarea-agregar input{
+        width: 55%;
+    }
+
+    .btns-add-cancel{
+        width: 18rem;
+    }
+
+    .btns-add-cancel button I{
+        font-size: 1.5rem;
+    }
+
+    .buscar{
+        width: 35%;
+    }
+    .btns{
+        width: 15rem;
+    }
+    .tarea h2{
+        font-size: 2.5rem;
+    }
+
+    .btns button i{
+        font-size: 1.5rem;
     }
 }
