@@ -256,7 +256,7 @@ main h1{
 }
 
 /* RESPONSIVO ALTURA */
-@media (min-height: 720px){
+@media (min-height: 600px){
     .tareas-box{
         height: 60rem;
         width: 95%;
