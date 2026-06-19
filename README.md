@@ -17,7 +17,8 @@ Tecnologías utilizadas:
 * JavaScript
 * LocalStorage
 
-Objetivo del proyecto:
+Objetivo del proyecto: 
+
 Este proyecto tiene como objetivo reforzar habilidades en manipulación del DOM, lógica de programación y manejo de LocalStorage en aplicaciones web.
 
 Aprendizajes:
