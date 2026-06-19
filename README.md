@@ -28,6 +28,7 @@ Aprendizajes:
 * Estructuración de una aplicación web básica
 
 Autor:
+
 Christopher López Galaz
 Egresado de Analista Programador
 Buscando práctica profesional como desarrollador Full Stack JavaScript
