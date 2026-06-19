@@ -2,8 +2,7 @@ Administrador de Tareas
 
 Aplicación web para la gestión de tareas, desarrollada como proyecto personal para practicar habilidades de desarrollo Front End.
 
-Funcionalidades
-
+Funcionalidades:
 * Crear tareas
 * Editar tareas
 * Eliminar tareas
@@ -12,26 +11,22 @@ Funcionalidades
 * Leer tareas
 
 
-Tecnologías utilizadas
-
+Tecnologías utilizadas:
 * HTML
 * CSS
 * JavaScript
 * LocalStorage
 
-Objetivo del proyecto
-
+Objetivo del proyecto:
 Este proyecto tiene como objetivo reforzar habilidades en manipulación del DOM, lógica de programación y manejo de LocalStorage en aplicaciones web.
 
-Aprendizajes
-
+Aprendizajes:
 * Manipulación del DOM con JavaScript
 * Manejo de eventos
 * Uso de LocalStorage
 * Estructuración de una aplicación web básica
 
-Autor
-
+Autor:
 Christopher López Galaz
 Egresado de Analista Programador
 Buscando práctica profesional como desarrollador Full Stack JavaScript
